@@ -1,0 +1,30 @@
+# Fichiers et dossiers de Code::Blocks
+*.layout
+*.depend
+*.cbp.bak
+*.cbp.*  # fichiers de sauvegarde/lock du projet
+
+# Fichiers de build
+/bin/
+/obj/
+/build/
+/out/
+
+# Exécutables et binaires générés
+*.exe
+*.dll
+*.so
+*.dylib
+*.o
+*.a
+
+# Fichiers temporaires de l’éditeur
+*.swp
+*~
+*.bak
+
+# Logs
+*.log
+
+# Pour éviter d'ajouter des fichiers générés par erreur
+*.ppm
