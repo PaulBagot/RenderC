@@ -39,4 +39,10 @@ ImagePGM allocate_image_pgm(int hight, int width, int max_gray_value);
 
 ImagePPM allocate_image_ppm(int hight, int width, int max_color_value);
 
+int save_image_pbm(ImagePBM image, char * path);
+
+//int save_image_pgm(ImagePGM image, char * path);
+
+//int save_image_ppm(ImagePPM image, char * path);
+
 #endif // FABRIC_IMAGE_H INCLUDED

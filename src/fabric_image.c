@@ -1,5 +1,6 @@
 #include "../include/fabric_image.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 ImageBase allocate_image_base(int hight, int width, char magic_number[2]) {
 	
@@ -56,3 +57,26 @@ ImagePPM allocate_image_ppm(int hight, int width, int max_color_value) {
 	}
 	return new_image;
 }
+
+int save_image_pbm(ImagePBM image, char * path) {
+	
+	FILE * file = fopen(path, "w");
+	if(file == NULL) {
+		return 0;
+	}
+	
+	fprintf(file, "%s\n", image.base.magic_number);
+	fprintf(file, "%d %d\n", image.base.width, image.base.hight);
+	
+	for(int i = 0; i < image.base.hight; i++) {
+		for(int j = 0; j < image.base.width; j++) {
+			fprintf(file, "%d", image.data[i][j]);
+		}
+		fprintf(file, "\n");
+	}
+	
+	fclose(file);
+	
+	return 1;
+}
+
