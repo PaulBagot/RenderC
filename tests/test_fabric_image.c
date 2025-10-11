@@ -66,12 +66,24 @@ void test_allocate_image_ppm() {
 	printf("%d\n", true);
 }
 
+void  test_save_image_pbm() {
+	//ImagePBM image, char * path
+	ImagePBM image = allocate_image_pbm(3, 3);
+	for(int i = 0; i < 3; i++) {
+		for(int j = 0; j < 3; j++) {
+			image.data[i][j] = i % 2;
+		}
+	}
+	printf("%d\n", save_image_pbm(image, "./tests/tmp/test_save_pbm.ppm") == 1);
+}
+
 int main(void) {
 	display_start_of_test("tests fabric image");
 	test_allocate_image_base();
 	test_allocate_image_pbm();
 	test_allocate_image_pgm();
 	test_allocate_image_ppm();
+	test_save_image_pbm();
 	display_end_of_test();
 	return 0;
 }

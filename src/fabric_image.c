@@ -47,7 +47,7 @@ ImagePPM allocate_image_ppm(int hight, int width, int max_color_value) {
 	
 	for(int i = 0; i < hight; i++) {
 		new_image.pixels[i] = malloc(sizeof(Pixel) * width);
-		for(int j = 0; j < width; j++) {
+		for(int j = 0; j < width; j++) {	
 			Pixel new_pixel;
 			new_pixel.r = 0;
 			new_pixel.g = 0;
@@ -59,8 +59,8 @@ ImagePPM allocate_image_ppm(int hight, int width, int max_color_value) {
 }
 
 int save_image_pbm(ImagePBM image, char * path) {
-	
-	FILE * file = fopen(path, "w");
+		
+	FILE * file = fopen(path, "w+");
 	if(file == NULL) {
 		return 0;
 	}
@@ -74,9 +74,6 @@ int save_image_pbm(ImagePBM image, char * path) {
 		}
 		fprintf(file, "\n");
 	}
-	
 	fclose(file);
-	
 	return 1;
 }
-
