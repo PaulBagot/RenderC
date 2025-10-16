@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "test.h"
-#include "../include/fabric_image.h"
+#include "../include/image.h"
 
 void test_allocate_image_base() {
 	ImageBase base = allocate_image_base(150, 140, "P1");
@@ -15,15 +15,15 @@ void test_allocate_image_pbm() {
 	printf("%d\n", image.base.hight == 150);
 	printf("%d\n", image.base.width == 140);
 	printf("%d\n", strcmp(image.base.magic_number, "P1") == 0);
-	int true = 1;
+	int test = 1;
 	for(int i = 0; i < image.base.hight; i++) {
 		for(int j = 0; j < image.base.width; j++) {
 			if(image.data[i][j] != 0) {
-				true = 0;
+				test = 0;
 			}
 		}
 	}
-	printf("%d\n", true);
+	printf("%d\n", test);
 } 
 
 void test_allocate_image_pgm() {
@@ -32,15 +32,15 @@ void test_allocate_image_pgm() {
 	printf("%d\n", image.base.width == 50);
 	printf("%d\n", strcmp(image.base.magic_number, "P2") == 0);
 	printf("%d\n", image.max_gray_value == 255);
-	int true = 1;
+	int test = 1;
 	for(int i = 0; i < image.base.hight; i++) {
 		for(int j = 0; j < image.base.width; j++) {
 			if(image.data[i][j] != 0) {
-				true = 0;
+				test = 0;
 			}
 		}
 	}
-	printf("%d\n", true);
+	printf("%d\n", test);
 }
 
 void test_allocate_image_ppm() {
@@ -49,21 +49,21 @@ void test_allocate_image_ppm() {
 	printf("%d\n", image.base.width == 100);
 	printf("%d\n", strcmp(image.base.magic_number, "P3") == 0);
 	printf("%d\n", image.max_color_value == 255);
-	int true = 1;
+	int test = 1;
 	for(int i = 0; i < image.base.hight; i++) {
 		for(int j = 0; j < image.base.width; j++) {
 			if(image.pixels[i][j].r != 0) {
-				true = 0;
+				test = 0;
 			}
 			if(image.pixels[i][j].g != 0) {
-				true = 0;
+				test = 0;
 			}
 			if(image.pixels[i][j].b != 0) {
-				true = 0;
+				test = 0;
 			}
 		}
 	}
-	printf("%d\n", true);
+	printf("%d\n", test);
 }
 
 void  test_save_image_pbm() {
@@ -78,7 +78,7 @@ void  test_save_image_pbm() {
 }
 
 int main(void) {
-	display_start_of_test("tests fabric image");
+	display_start_of_test("tests image");
 	test_allocate_image_base();
 	test_allocate_image_pbm();
 	test_allocate_image_pgm();

@@ -1,5 +1,5 @@
-#ifndef FABRIC_IMAGE_H
-#define FABRIC_IMAGE_H
+#ifndef IMAGE_H
+#define IMAGE_H
 
 struct ImageBase {
 	char * magic_number;
@@ -45,4 +45,4 @@ int save_image_pbm(ImagePBM image, char * path);
 
 //int save_image_ppm(ImagePPM image, char * path);
 
-#endif // FABRIC_IMAGE_H INCLUDED
+#endif // IMAGE_H INCLUDED
