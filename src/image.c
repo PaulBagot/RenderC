@@ -77,3 +77,34 @@ int save_image_pbm(ImagePBM image, char * path) {
 	fclose(file);
 	return 1;
 }
+
+
+int load_image_pbm(ImagePBM * image, char * path) {
+	
+	FILE * file = fopen(path, "r");
+	if(file == NULL) {
+		return 0;
+	}
+	
+	char[2] magic_number;
+	freadf(file, "%s\n", magic_number); 
+	
+	int width = 0;
+	int hight = 0;
+	freadf(file, "%d %d\n", &width, &hight);
+	
+	if(allocate_image_pbm(image, hight, width) == 0) {
+		return 0;
+	}
+	
+	for(int i = 0; i < image->base.hight; i++) {
+		for(int j = 0; j < image->base.width; j++) {
+			freadf(file, "%d", image.data[i][j]);
+		}
+	}
+	return 1;
+}
+
+
+
+
