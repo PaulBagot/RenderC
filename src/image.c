@@ -105,6 +105,3 @@ int load_image_pbm(ImagePBM * image, char * path) {
 	return 1;
 }
 
-
-
-
