@@ -2,60 +2,70 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-ImageBase allocate_image_base(int hight, int width, char magic_number[2]) {
+int allocate_image_base(ImageBase * image, int hight, int width, char magic_number[2]) {
 	
-	ImageBase base;
-	base.magic_number = malloc(sizeof(char) * 2);
-	base.magic_number = magic_number;
-	base.hight = hight;
-	base.width = width;
-	
-	return base;
-}
-
-ImagePBM allocate_image_pbm(int hight, int width) {
-	
-	ImagePBM new_image;
-	new_image.base = allocate_image_base(hight, width, "P1");
-	new_image.data = malloc(sizeof(int*) * hight);
-	
-	for(int i = 0; i < hight; i++) {
-		new_image.data[i] = malloc(sizeof(int) * width);
+	if(hight < 1 || width < 1) {
+		return 0;
 	}
-	return new_image;
+
+	image->magic_number = malloc(sizeof(char) * 2);
+	image->magic_number = magic_number;
+	image->hight = hight;
+	image->width = width;
+	
+	return 1;
 }
 
-ImagePGM allocate_image_pgm(int hight, int width, int max_gray_value) {
+int allocate_image_pbm(ImagePBM * image, int hight, int width) {
 	
-	ImagePGM new_image;
-	new_image.base = allocate_image_base(hight, width, "P2");
-	new_image.max_gray_value = max_gray_value;
-	new_image.data = malloc(sizeof(int*) * hight);
-	
-	for(int i = 0; i < hight; i++) {
-		new_image.data[i] = malloc(sizeof(int) * width);
+	if(allocate_image_base(&image->base, hight, width, "P1") == 0) {
+		return 0;
 	}
-	return new_image;
+	
+	image->data = malloc(sizeof(int*) * hight);
+	for(int i = 0; i < hight; i++) {
+		image->data[i] = malloc(sizeof(int) * width);
+	}
+
+	return 1;
 }
 
-ImagePPM allocate_image_ppm(int hight, int width, int max_color_value) {
-
-	ImagePPM new_image;
-	new_image.base = allocate_image_base(hight, width, "P3");
-	new_image.max_color_value = max_color_value;
-	new_image.pixels = malloc(sizeof(Pixel*) * hight);
+int allocate_image_pgm(ImagePGM * image, int hight, int width, int max_gray_value) {
 	
+	if(allocate_image_base(&image->base, hight, width, "P2") == 0) {
+		return 0;
+	}
+	
+	image->max_gray_value = max_gray_value;
+	image->data = malloc(sizeof(int*) * hight);
 	for(int i = 0; i < hight; i++) {
-		new_image.pixels[i] = malloc(sizeof(Pixel) * width);
+		image->data[i] = malloc(sizeof(int) * width);
+	}
+
+	return 1;
+}
+
+int allocate_image_ppm(ImagePPM * image, int hight, int width, int max_color_value) {
+
+	if(allocate_image_base(&image->base, hight, width, "P3") == 0) {
+		return 0;
+	}
+	
+	image->max_color_value = max_color_value;
+	image->pixels = malloc(sizeof(Pixel*) * hight);
+	for(int i = 0; i < hight; i++) {
+
+		image->pixels[i] = malloc(sizeof(Pixel) * width);
 		for(int j = 0; j < width; j++) {	
 			Pixel new_pixel;
 			new_pixel.r = 0;
 			new_pixel.g = 0;
 			new_pixel.b = 0;
-			new_image.pixels[i][j] = new_pixel;
+			image->pixels[i][j] = new_pixel;
 		}
 	}
-	return new_image;
+	
+	return 1;
 }
 
 int save_image_pbm(ImagePBM image, char * path) {
@@ -86,12 +96,12 @@ int load_image_pbm(ImagePBM * image, char * path) {
 		return 0;
 	}
 	
-	char[2] magic_number;
-	freadf(file, "%s\n", magic_number); 
+	char magic_number[2];
+	fscanf(file, "%s\n", magic_number); 
 	
 	int width = 0;
 	int hight = 0;
-	freadf(file, "%d %d\n", &width, &hight);
+	fscanf(file, "%d %d\n", &width, &hight);
 	
 	if(allocate_image_pbm(image, hight, width) == 0) {
 		return 0;
@@ -99,7 +109,7 @@ int load_image_pbm(ImagePBM * image, char * path) {
 	
 	for(int i = 0; i < image->base.hight; i++) {
 		for(int j = 0; j < image->base.width; j++) {
-			freadf(file, "%d", image.data[i][j]);
+			fscanf(file, "%d", &image->data[i][j]);
 		}
 	}
 	return 1;

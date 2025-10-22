@@ -98,7 +98,7 @@ int save_image_pbm(ImagePBM image, char * path);
  * @return Integer 0 if something went wron, else 1
  * 
  */
-int load_image_pbm(ImagePBM image, char * path);
+int load_image_pbm(ImagePBM * image, char * path);
 
 //int save_image_pgm(ImagePGM image, char * path);
 
