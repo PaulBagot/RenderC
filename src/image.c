@@ -115,3 +115,23 @@ int load_image_pbm(ImagePBM * image, char * path) {
 	return 1;
 }
 
+int save_image_pgm(ImagePGM image, char * path) {
+	FILE * file = fopen(path, "r");
+	if(file == NULL) {
+		return 0;
+	}
+
+	fprintf(file, "%s\n", image.base.magic_number);
+	fprintf(file, "%d %d\n", image.base.width, image.base.hight);
+	fprintf(file, "%d\n", image.max_gray_value);
+
+	for(int i = 0; i < image.base.hight; i++) {
+		for(int j = 0; j < image.base.width; j++) {
+			fprintf(file, "%d", image.data[i][j]);
+		}
+		fprintf(file, "\n");
+	}
+
+	fclose(file);
+	return 1;
+}

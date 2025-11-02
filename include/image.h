@@ -84,7 +84,7 @@ int allocate_image_ppm(ImagePPM * image, int hight, int width, int max_color_val
  * @param image The image that will be saved
  * @param path the path where the image will be downloaded
  * 
- * @return Integer 0 if something went wron, else 1
+ * @return Integer 0 if something went wrong, else 1
  * 
  */
 int save_image_pbm(ImagePBM image, char * path);
@@ -95,12 +95,32 @@ int save_image_pbm(ImagePBM image, char * path);
  * @param image The image that will be returned
  * @param path the path where the image is supposed stored
  * 
- * @return Integer 0 if something went wron, else 1
+ * @return Integer 0 if something went wrong, else 1
  * 
  */
 int load_image_pbm(ImagePBM * image, char * path);
 
-//int save_image_pgm(ImagePGM image, char * path);
+/**
+ * @brief save a PGM image into a file, if file doesn't exist it will try to create it
+ *
+ * @param image The image that will be saved
+ * @param path the path where the image will be downloaded
+ *
+ * @return Integer 0 if something went wrong, else 1
+ *
+ */
+int save_image_pgm(ImagePGM image, char * path);
+
+/**
+ * @brief load a PGM image from a existing file
+ *
+ * @param image The image that will be returned
+ * @param path the path where the image is supposed stored
+ *
+ * @return Integer 0 if something went wrong, else 1
+ *
+ */
+//int load_image_pgm(ImagePGM * image, char * path);
 
 //int save_image_ppm(ImagePPM image, char * path);
 
