@@ -158,4 +158,25 @@ int save_image_ppm(ImagePPM image, char* path);
  */
 int load_image_ppm(ImagePPM* image, char* path);
 
+/**
+ * @brief free the memory from the struct in parameters
+ * @param image the image to free
+ * @return Integer 0 if something went wrong, else 1
+ */
+int destroy_image_pbm(ImagePBM* image);
+
+/**
+ * @brief free the memory from the struct in parameters
+ * @param image the image to free
+ * @return Integer 0 if something went wrong, else 1
+ */
+int destroy_image_pgm(ImagePGM* image);
+
+/**
+ * @brief free the memory from the struct in parameters
+ * @param image the image to free
+ * @return Integer 0 if something went wrong, else 1
+ */
+int destroy_image_ppm(ImagePPM* image);
+
 #endif // IMAGE_H INCLUDED

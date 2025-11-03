@@ -253,3 +253,21 @@ int load_image_ppm(ImagePPM* image, char* path)
     fclose(file);
     return 1;
 }
+
+int destroy_image_pbm(ImagePBM* image)
+{
+    free(image);
+    return 1;
+}
+
+int destroy_image_pgm(ImagePGM* image)
+{
+    free(image);
+    return 1;
+}
+
+int destroy_image_ppm(ImagePPM* image)
+{
+    free(image);
+    return 1;
+}
