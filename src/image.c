@@ -125,7 +125,7 @@ int load_image_pbm(ImagePBM* image, char* path)
 
 int save_image_pgm(ImagePGM image, char* path)
 {
-    FILE* file = fopen(path, "r");
+    FILE* file = fopen(path, "w+");
     if (file == NULL) {
         return 0;
     }
@@ -169,5 +169,44 @@ int load_image_pgm(ImagePGM* image, char* path)
             fscanf(file, "%d", &image->data[i][j]);
         }
     }
+    return 1;
+}
+
+int create_pixel(Pixel* pixel, int max_color_value, int r, int g, int b)
+{
+    if (r < 0 || g < 0 || b < 0) {
+        return 0;
+    }
+
+    if (r > max_color_value || g > max_color_value || b > max_color_value) {
+        return 0;
+    }
+
+    pixel->r = r;
+    pixel->g = g;
+    pixel->b = b;
+    return 1;
+}
+
+int save_image_ppm(ImagePPM image, char* path)
+{
+    FILE* file = fopen(path, "w+");
+    if (file == NULL) {
+        return 0;
+    }
+
+    fprintf(file, "%s\n", image.base.magic_number);
+    fprintf(file, "%d %d\n", image.base.width, image.base.hight);
+    fprintf(file, "%d\n", image.max_color_value);
+
+    for (int i = 0; i < image.base.hight; i++) {
+        for (int j = 0; j < image.base.width; j++) {
+            fprintf(file, "%d ", image.pixels[i][j].r);
+            fprintf(file, "%d ", image.pixels[i][j].g);
+            fprintf(file, "%d\n", image.pixels[i][j].b);
+        }
+    }
+
+    fclose(file);
     return 1;
 }

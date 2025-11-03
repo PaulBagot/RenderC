@@ -122,6 +122,29 @@ int save_image_pgm(ImagePGM image, char* path);
  */
 int load_image_pgm(ImagePGM* image, char* path);
 
-// int save_image_ppm(ImagePPM image, char * path);
+/**
+ * @brief create a pixel with the colors in the parameters
+ *
+ * @param pixel The pixel that will created
+ * @param max_color_value the maximum value a color can have
+ * @param r the red color of the pixel
+ * @param g the green color of the pixel
+ * @param b the blue color of the pixel
+ *
+ * @return Integer 0 if something went wrong, else 1
+ *
+ */
+int create_pixel(Pixel* pixel, int max_color_value, int r, int g, int b);
+
+/**
+ * @brief save a PPM image into a file, if file doesn't exist it will try to create it
+ *
+ * @param image The image that will be saved
+ * @param path the path where the image will be downloaded
+ *
+ * @return Integer 0 if something went wrong, else 1
+ *
+ */
+int save_image_ppm(ImagePPM image, char* path);
 
 #endif // IMAGE_H INCLUDED
