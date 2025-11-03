@@ -147,4 +147,15 @@ int create_pixel(Pixel* pixel, int max_color_value, int r, int g, int b);
  */
 int save_image_ppm(ImagePPM image, char* path);
 
+/**
+ * @brief load a PPM image from a existing file
+ *
+ * @param image The image that will be returned
+ * @param path the path where the image is supposed stored
+ *
+ * @return Integer 0 if something went wrong, else 1
+ *
+ */
+int load_image_ppm(ImagePPM* image, char* path);
+
 #endif // IMAGE_H INCLUDED

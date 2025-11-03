@@ -92,6 +92,7 @@ int save_image_pbm(ImagePBM image, char* path)
         }
         fprintf(file, "\n");
     }
+
     fclose(file);
     return 1;
 }
@@ -120,6 +121,8 @@ int load_image_pbm(ImagePBM* image, char* path)
             fscanf(file, "%d", &image->data[i][j]);
         }
     }
+
+    fclose(file);
     return 1;
 }
 
@@ -169,6 +172,8 @@ int load_image_pgm(ImagePGM* image, char* path)
             fscanf(file, "%d", &image->data[i][j]);
         }
     }
+
+    fclose(file);
     return 1;
 }
 
@@ -204,6 +209,44 @@ int save_image_ppm(ImagePPM image, char* path)
             fprintf(file, "%d ", image.pixels[i][j].r);
             fprintf(file, "%d ", image.pixels[i][j].g);
             fprintf(file, "%d\n", image.pixels[i][j].b);
+        }
+    }
+
+    fclose(file);
+    return 1;
+}
+
+int load_image_ppm(ImagePPM* image, char* path)
+{
+    FILE* file = fopen(path, "r");
+    if (file == NULL) {
+        return 0;
+    }
+
+    char magic_number[2];
+    fscanf(file, "%s\n", magic_number);
+
+    int width;
+    int hight;
+    fscanf(file, "%d %d\n", &width, &hight);
+
+    int max_color_value;
+    fscanf(file, "%d\n", &max_color_value);
+
+    if (allocate_image_ppm(image, hight, width, max_color_value) == 0) {
+        return 0;
+    }
+
+    for (int i = 0; i < image->base.hight; i++) {
+        for (int j = 0; j < image->base.width; j++) {
+            int red = 0;
+            int green = 0;
+            int blue = 0;
+            fscanf(file, "%d %d %d\n", &red, &blue, &green);
+            if (create_pixel(&image->pixels[i][j], image->max_color_value, red, green, blue) == 0) {
+                free(image);
+                return 0;
+            }
         }
     }
 
