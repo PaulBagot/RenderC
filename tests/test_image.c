@@ -107,6 +107,24 @@ void test_save_image_pgm()
     printf("%d\n", save_image_pgm(image, "./tests/tmp/test_save_pgm.ppm") == 1);
 }
 
+void test_create_pixel()
+{
+    printf("#%s\n", __func__);
+    ImagePPM image;
+    allocate_image_ppm(&image, 1, 1, 255);
+    int max = image.max_color_value;
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, -1, 0, 0) == 0);
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, 0, -1, 0) == 0);
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, 0, 0, -1) == 0);
+
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, max + 1, max, max) == 0);
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, max, max + 1, max) == 0);
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, max, max, max + 1) == 0);
+
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, 0, 0, 0) == 1);
+    printf("%d\n", create_pixel(&image.pixels[0][0], max, max, max, max) == 1);
+}
+
 void test_save_image_ppm()
 {
     printf("#%s\n", __func__);
@@ -135,6 +153,7 @@ int main(void)
     test_allocate_image_pbm();
     test_allocate_image_pgm();
     test_allocate_image_ppm();
+    test_create_pixel();
     test_save_image_pbm();
     test_save_image_pgm();
     test_save_image_ppm();
